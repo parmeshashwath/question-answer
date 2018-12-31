@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Answer Machine</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<style>
+body {
+  padding-top: 1.5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: left;
+}
+
+
+
+</style>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="background-color:#005073 !important;">
+    <!--<a class="navbar-brand" href="#">Deep Learning Analytics</a>-->
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <!-- <img src="static/img/logo-cisco.png" style="width:8%;" /> -->
+
+        <ul class="navbar-nav mr-auto" style="margin-left:40%;">
+
+
+
+            <li class="nav-item active">
+                <a class="nav-link" href="#" style="font-size:30px;">Answer Machine <span class="sr-only">(current)</span></a>
+            </li>
+            <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="#">Demo 2</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+            <!--<a class="nav-link disabled" href="#">Demo 3</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item dropdown">-->
+            <!--<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Demos</a>-->
+            <!--<div class="dropdown-menu" aria-labelledby="dropdown01">-->
+            <!--<a class="dropdown-item" href="#">Demo 1</a>-->
+            <!--<a class="dropdown-item" href="#">Demo 2</a>-->
+            <!--<a class="dropdown-item" href="#">Demo 3</a>-->
+            <!--</div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+</nav>
+<main role="main" class="container" style="margin-top:50px;">
+    <div class="starter-template">
+        <b>Answer Machine - Ask Me Anything</b><br/><br/>
+        <div id="theGif" style="display:none;">
+            <p>Finding Answers...</p>
+            <p>Key things to know about this model:</p>
+            <ul>
+                <li style="width:-webkit-fill-available">This Question - Answer demo uses the BiDirectional Attention Flow (BiDAF)
+                    model. BiDAF model uses bi-directional RNNs for context and questions and attention mechanism to
+                    identify the best answer for each question
+                </li>
+                <li style="width:-webkit-fill-available">The data used to build this model was the Stanford Question Answer Dataset
+                    (SQUAD 1,1) which has 100,000+ questions posed by crowdworkers on a set of Wikipedia articles
+                </li>
+                <li style="width:-webkit-fill-available">This model is quite fast given its complexity and works fairly well on a wide
+                    variety of contexts it has never seen before
+                </li>
+            </ul>
+            <img src="https://cdn.dribbble.com/users/1643824/screenshots/3429154/untitled-4.gif">
+        </div>
+        <form  id="theForm">
+            <p style="width:-webkit-fill-available"><b>Direction</b> : Select a paragraph and write your own question. The answer is always a subphrase of the paragraph - remember it when you ask a question!</p>
+            <div class="form-group">
+                <label><label for="para">Paragraph</label></label>
+                <br/>
+                <textarea cols="100" id="para" name="para" required rows="8" style="width:-webkit-fill-available">Come And See This Beautiful And Well Kept Backsplit With Fully Fenced Yard In This High Demand North York Family-Friendly Neighbourhood. Featuring Upgrades And Updates Galore. This Well Laid Out Home Shows Real Pride Of Ownership. Steps To Schools, Mall, Public Transit, Banks, Ttc And More. The Basement Features An In-Law Suite With Separate Entrance, Bathroom And Kitchen. Kitchen renovated in 2018, Main Bathroom in 2017 And Powder Room in 2018. Parking type is attached garage with 3 parking spaces. Unit has total 3 bathrooms, 4 bedrooms above grade and 1 bedroom below grade. Unit type is semi-detached with backsplit.</textarea>
+
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label><label for="q1">Question 1</label></label>
+                <br/>
+                <textarea cols="100" id="q1" name="q1" required style="width:-webkit-fill-available">When was the kitchen renovated?</textarea>
+                  <span>Answer: </span><span class="answer" style="color:green" id="a1"></span>
+
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label><label for="q2">Question 2</label></label>
+                <br/>
+                <textarea cols="100" id="q2" name="q2" style="width:-webkit-fill-available">How many parking spaces are there?</textarea>
+                <span>Answer: </span><span class="answer" style="color:green" id="a2"></span>
+
+            </div>
+            <hr/>
+            <!-- <div class="form-group">
+                <label><label for="q3">Question 3</label></label>
+                <br/>
+                <textarea cols="100" id="q3" name="q3" style="width:-webkit-fill-available">What does the basement have?</textarea>
+                <span>Answer: </span><span class="answer" style="color:green" id="a3"></span>
+
+            </div> -->
+            <a href="#" id="clearInput" class="btn btn-secondary">Clear Input</a>
+            <input type="button" id="submitButton" class="btn btn-primary" value="Find Answers">
+        </form>
+    </div>
+</main><!-- /.container -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+
+
+</script>
+<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+<script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#clearInput').on('click', function() {
+          $("input[type=text], textarea").val("");
+          $('.answer').html("")
+      });
+
+      $('#submitButton').on('click', function() {
+        setTimeout(function() {
+          $('#theForm').hide();
+          $('#theGif').show();
+        }, 1);
+        $('.answer').html("")
+        var payload = {
+	"data": [{
+
+		"paragraphs": [{
+			"context": $('#para').val(),
+      	"qas": [{
+
+				"question": $('#q1').val(),
+				"id": "a1"
+			}, {
+
+				"question": $('#q2').val(),
+				"id": "a2"
+			}
+    ]
+		}]
+	}]
+}
+$.ajax({
+        url: "/getAnswers",
+        type: "POST",
+        data: JSON.stringify(payload),
+        headers:{'content-type':'application/json'},
+        dataType: 'json', // lowercase is always preferered though jQuery does it, too.
+        success: function(data){
+          console.log(data)
+          for (var d in data)
+          {
+            $('#'+d).html(data[d])
+          }
+          setTimeout(function() {
+            $('#theForm').show();
+            $('#theGif').hide();
+
+          }, 1);
+        },
+        error: function(err){
+          console.log("error")
+          console.log(err)
+        }
+});
+
+
+
+      });
+    })
+
+
+
+</script>
+</body>
+</html>
